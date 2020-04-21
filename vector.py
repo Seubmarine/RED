@@ -1,12 +1,12 @@
-from math import sqrt
+from math import sqrt, floor
 
 
 class Vector2:
-    
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
-    
+
     def __add__(self, vector2):
         return Vector2(self.x + vector2.x, self.y + vector2.y)
 
@@ -34,7 +34,7 @@ class Vector2:
             return Vector2(self.x // other.x, self.y // other.y)
         elif type(other) in (int, float):
             return Vector2(self.x // other, self.y // other)
-    
+
     def replace(self, vector2):
         self.x = vector2.x
         self.y = vector2.y
@@ -49,6 +49,8 @@ class Vector2:
         m = self.sqrtMagnitude()
         if m != 0:
             return self / m
+        else:
+            return self
 
     def reverse(self):
         return Vector2(self.x * -1, self.y * -1)
@@ -83,10 +85,15 @@ class Vector2:
     def right(self, velocity):
         self.x += velocity
 
-    def __int__(self):
-        # self.x = int(self.x)
-        # self.y = int(self.y)
-        return Vector2(int(self.x), int(self.y))
+    def floor(self):
+        return Vector2(floor(self.x), floor(self.y))
 
     def __repr__(self):
-        return str('%s %s'%(self.x, self.y))
+        return str('%s %s' % (self.x, self.y))
+
+# Const
+Vector2.ZERO = Vector2(0, 0)
+Vector2.UP = Vector2(0, -1)
+Vector2.RIGHT = Vector2(1, 0)
+Vector2.DOWN = Vector2(0, 1)
+Vector2.LEFT = Vector2(-1, 0)
